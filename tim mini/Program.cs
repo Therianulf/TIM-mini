@@ -21,7 +21,7 @@ namespace IngameScript
     {
         /*
      Taleden's Inventory Manager
-     version 1.6.4 (2017-04-03)
+     version 1.7.0 (2018-10-30)
 
      "There are some who call me... TIM?"
 
@@ -153,8 +153,8 @@ PhysicalGunObject/
         Do not edit anything below unless you're sure you know what you're doing!
         */
 
-        const int VERS_MAJ = 1, VERS_MIN = 6, VERS_REV = 4;
-        const string VERS_UPD = "2017-04-03";
+        const int VERS_MAJ = 1, VERS_MIN = 7, VERS_REV = 0;
+        const string VERS_UPD = "2018-10-30";
         const int VERSION = (VERS_MAJ * 1000000) + (VERS_MIN * 1000) + VERS_REV;
 
         const int MAX_CYCLE_STEPS = 11, CYCLE_LENGTH = 1;
