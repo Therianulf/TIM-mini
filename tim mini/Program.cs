@@ -616,6 +616,8 @@ PhysicalGunObject/
                     inven = block.GetInventory(i);
                     inven.GetItems(stacks,null);
                     s = stacks.Count;
+
+                    Echo("i = " + i.ToString() + " s = " + s.ToString());
                     while (s-- > 0)
                     {
                         // identify the stacked item
@@ -629,7 +631,8 @@ PhysicalGunObject/
                         isub = isub.ToUpper();
 
                         // update amounts
-                        amount = (long)((double)stacks[s].Amount * 1e6);
+                        amount = (long)stacks[s].Amount.ToIntSafe();
+                        debugText.Add( isub + " updated amount " + amount.ToString());
                         typeAmount[itype] += amount;
                         data = typeSubData[itype][isub];
                         data.amount += amount;
@@ -638,6 +641,7 @@ PhysicalGunObject/
                         data.invenTotal[inven] = total + amount;
                         data.invenSlot.TryGetValue(inven, out n);
                         data.invenSlot[inven] = Math.Max(n, s + 1);
+                        debugText.Add(" data.amount after update " + data.amount.ToString());
                     }
                 }
             }
@@ -661,7 +665,7 @@ PhysicalGunObject/
                     itype = stack.Type.ToString();
                     itype = itype.Substring(itype.LastIndexOf('_') + 1).ToUpper();
                     isub = stack.Type.SubtypeId.ToString().ToUpper();
-
+                    debugText.Add("adding " + stack.Amount.ToString() + " X " + stack.Type.SubtypeId.ToString().ToUpper());
                     amount = (long)((double)stack.Amount * 1e6);
                     typeAmount[itype] -= amount;
                     typeSubData[itype][isub].amount -= amount;
@@ -1461,9 +1465,12 @@ PhysicalGunObject/
                 foreach (string itype in priTypeSubInvenRequest[p].Keys)
                 {
 
-                    Echo(itype.ToString());
+                    Echo("itype = "+itype);
                     foreach (string isub in priTypeSubInvenRequest[p][itype].Keys)
+                    {
+                        Echo("isub = "+isub + " | p = " + p.ToString());
                         AllocateItemBatch(limited, p, itype, isub);
+                    }
                 }
             }
 
@@ -1490,8 +1497,9 @@ PhysicalGunObject/
             List<IMyInventory> invens = null;
             Dictionary<IMyInventory, long> invenRequest;
 
-            if (debug) debugText.Add("sorting " + typeLabel[itype] + "/" + subLabel[isub] + " lim=" + limited + " p=" + priority);
-
+            //if (debug) 
+            debugText.Add("sorting " + typeLabel[itype] + "/" + subLabel[isub] + " lim=" + limited + " p=" + priority);
+            
             round = 1L;
             if (!FRACTIONAL_TYPES.Contains(itype))
                 round = 1000000L;
@@ -1515,11 +1523,13 @@ PhysicalGunObject/
                     totalrequest += request;
                 }
             }
-            if (debug) debugText.Add("total req=" + (totalrequest / 1e6));
+            //if (debug)
+                debugText.Add("total req=" + (totalrequest / 1e6));
             if (totalrequest <= 0L)
                 return;
             totalavail = data.avail + data.locked;
-            if (debug) debugText.Add("total avail=" + (totalavail / 1e6));
+            //if (debug)
+                debugText.Add("total avail=" + (totalavail / 1e6));
 
             // disqualify any locked invens which already have their share
             if (totalavail > 0L)
