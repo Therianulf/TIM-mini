@@ -1644,7 +1644,7 @@ PhysicalGunObject/
                         if (remaining < 0)
                             remaining = 0;
                     }
-                    else if (fromInven.TransferItemTo(toInven, s, null, true, remaining))
+                    else if (fromInven.TransferItemTo(toInven, stacks[s], remaining))
                     {
                         fromInven.GetItems(stacks, null);
                         if (s < stacks.Count && stacks[s].ItemId == id)
