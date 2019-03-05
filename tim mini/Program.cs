@@ -1981,7 +1981,7 @@ PhysicalGunObject/
         void ScanProduction()
         {
             List<IMyTerminalBlock> blocks1 = new List<IMyTerminalBlock>(), blocks2 = new List<IMyTerminalBlock>();
-            List<IMyInventoryItem> stacks;
+            List<MyInventoryItem> stacks = new List<MyInventoryItem>();
             string itype, isub, isubIng;
             List<MyProductionItem> queue = new List<MyProductionItem>();
             Item item;
@@ -1992,12 +1992,13 @@ PhysicalGunObject/
             GridTerminalSystem.GetBlocksOfType<IMyRefinery>(blocks2, blk => dockedgrids.Contains(blk.CubeGrid));
             foreach (IMyFunctionalBlock blk in blocks1.Concat(blocks2))
             {
-                stacks = blk.GetInventory(0).GetItems();
+
+                blk.GetInventory(0).GetItems(stacks,null);
                 if (stacks.Count > 0 & blk.Enabled)
                 {
-                    itype = "" + stacks[0].Content.TypeId;
+                    itype = stacks[0].Type.ToString();
                     itype = itype.Substring(itype.LastIndexOf('_') + 1).ToUpper();
-                    isub = stacks[0].Content.SubtypeId.ToString().ToUpper();
+                    isub = stacks[0].Type.SubtypeId.ToString().ToUpper();
                     if (typeSubs.ContainsKey(itype) & subTypes.ContainsKey(isub))
                         typeSubData[itype][isub].producers.Add(blk);
                     if (itype == "ORE" & (ORE_PRODUCT.TryGetValue(isub, out isubIng) ? isubIng : (isubIng = isub)) != "" & typeSubData["INGOT"].ContainsKey(isubIng))
