@@ -1505,7 +1505,7 @@ PhysicalGunObject/
                 round = 1000000L;
             invenRequest = new Dictionary<IMyInventory, long>();
             ItemData data = typeSubData[itype][isub];
-
+            
             // sum up the requests
             totalrequest = 0L;
             foreach (IMyInventory reqInven in priTypeSubInvenRequest[priority][itype][isub].Keys)
@@ -1748,16 +1748,16 @@ PhysicalGunObject/
                 rfn.GetInventory(0).GetItems(stacks,null);
                 if (stacks.Count > 0)
                 {
-                    itype = stacks[0].Type.ToString();
+                    itype = stacks[0].Type.TypeId;
                     itype = itype.Substring(itype.LastIndexOf('_') + 1).ToUpper();
-                    isub = stacks[0].Type.SubtypeId.ToString().ToUpper();
+                    isub = stacks[0].Type.SubtypeId.ToUpper();
                     if (itype == "ORE" & oreLevel.ContainsKey(isub))
                         oreLevel[isub] += Math.Max(1, oreLevel[isub] / refineryOres.Count);
                     if (stacks.Count > 1)
                     {
-                        itype2 = stacks[1].Type.ToString();
+                        itype2 = stacks[1].Type.TypeId;
                         itype2 = itype2.Substring(itype2.LastIndexOf('_') + 1).ToUpper();
-                        isub2 = stacks[1].Type.SubtypeId.ToString().ToUpper();
+                        isub2 = stacks[1].Type.SubtypeId.ToUpper();
                         if (itype2 == "ORE" & oreLevel.ContainsKey(isub2))
                             oreLevel[isub2] += Math.Max(1, oreLevel[isub2] / refineryOres.Count);
                         AddInvenRequest(rfn, 0, itype2, isub2, -2, (long)((double)stacks[1].Amount * 1e6 + 0.5));
