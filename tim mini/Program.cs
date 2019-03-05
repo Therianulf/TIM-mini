@@ -1449,14 +1449,19 @@ PhysicalGunObject/
         void AllocateItems(bool limited)
         {
             List<int> priorities;
-
+            
             // establish priority order, adding 0 for refinery management
             priorities = new List<int>(priTypeSubInvenRequest.Keys);
             priorities.Sort();
+
             foreach (int p in priorities)
             {
+
+                
                 foreach (string itype in priTypeSubInvenRequest[p].Keys)
                 {
+
+                    Echo(itype.ToString());
                     foreach (string isub in priTypeSubInvenRequest[p][itype].Keys)
                         AllocateItemBatch(limited, p, itype, isub);
                 }
@@ -1638,6 +1643,7 @@ PhysicalGunObject/
                     moved = stacks[s].Amount;
                     id = stacks[s].ItemId;
                     //			volume = (double)fromInven.CurrentVolume;
+                    if (debug) debugText.Add("" + remaining.ToString() + " remaining, attempting to send");
                     if (fromInven == toInven)
                     {
                         remaining -= moved;
