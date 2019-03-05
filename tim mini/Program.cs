@@ -570,7 +570,7 @@ PhysicalGunObject/
             System.Text.RegularExpressions.Match match;
             int i, s, n;
             IMyInventory inven;
-            List<IMyInventoryItem> stacks;
+            List<MyInventoryItem> stacks = new List<MyInventoryItem>();
             string itype, isub;
             ItemData data;
             long amount, total;
@@ -614,17 +614,17 @@ PhysicalGunObject/
                 while (i-- > 0)
                 {
                     inven = block.GetInventory(i);
-                    stacks = inven.GetItems();
+                    inven.GetItems(stacks,null);
                     s = stacks.Count;
                     while (s-- > 0)
                     {
                         // identify the stacked item
-                        itype = "" + stacks[s].Content.TypeId;
+                        itype = stacks[s].Type.ToString();
                         itype = itype.Substring(itype.LastIndexOf('_') + 1);
-                        isub = stacks[s].Content.SubtypeId.ToString();
+                        isub = stacks[s].Type.SubtypeId.ToString();
 
                         // new type or subtype?
-                        ItemData.Init(itype, isub, 0L, 0.0f, stacks[s].Content.SubtypeId.ToString(), null);
+                        ItemData.Init(itype, isub, 0L, 0.0f, stacks[s].Type.SubtypeId.ToString(), null);
                         itype = itype.ToUpper();
                         isub = isub.ToUpper();
 
@@ -649,14 +649,18 @@ PhysicalGunObject/
             string itype, isub;
             long amount;
             ItemData data;
+            List<MyInventoryItem> stacksLocked = new List<MyInventoryItem>();
+            List<MyInventoryItem> stacksHidden = new List<MyInventoryItem>();
+
 
             foreach (IMyInventory inven in invenHidden)
             {
-                foreach (IMyInventoryItem stack in inven.GetItems())
+                inven.GetItems(stacksHidden, null);
+                foreach (MyInventoryItem stack in stacksHidden)
                 {
-                    itype = "" + stack.Content.TypeId;
+                    itype = stack.Type.ToString();
                     itype = itype.Substring(itype.LastIndexOf('_') + 1).ToUpper();
-                    isub = stack.Content.SubtypeId.ToString().ToUpper();
+                    isub = stack.Type.SubtypeId.ToString().ToUpper();
 
                     amount = (long)((double)stack.Amount * 1e6);
                     typeAmount[itype] -= amount;
@@ -666,12 +670,12 @@ PhysicalGunObject/
 
             foreach (IMyInventory inven in invenLocked)
             {
-                foreach (IMyInventoryItem stack in inven.GetItems())
+                inven.GetItems(stacksLocked, null);
+                foreach (MyInventoryItem stack in stacksLocked)
                 {
-                    itype = "" + stack.Content.TypeId;
+                    itype = stack.Type.ToString();
                     itype = itype.Substring(itype.LastIndexOf('_') + 1).ToUpper();
-                    isub = stack.Content.SubtypeId.ToString().ToUpper();
-
+                    isub = stack.Type.SubtypeId.ToString().ToUpper();
                     amount = (long)((double)stack.Amount * 1e6);
                     data = typeSubData[itype][isub];
                     data.avail -= amount;
