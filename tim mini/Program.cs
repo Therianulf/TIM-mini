@@ -1527,6 +1527,7 @@ PhysicalGunObject/
                 debugText.Add("total req=" + (totalrequest / 1e6));
             if (totalrequest <= 0L)
                 return;
+            
             totalavail = data.avail + data.locked;
             //if (debug)
                 debugText.Add("total avail=" + (totalavail / 1e6));
@@ -1553,7 +1554,8 @@ PhysicalGunObject/
 
                             if (avail >= amount)
                             {
-                                if (debug) debugText.Add("locked " + (amtInven.Owner == null ? "???" : (amtInven.Owner as IMyTerminalBlock).CustomName) + " gets " + (amount / 1e6) + ", has " + (avail / 1e6));
+                                //if (debug)
+                                    debugText.Add("locked " + (amtInven.Owner == null ? "???" : (amtInven.Owner as IMyTerminalBlock).CustomName) + " gets " + (amount / 1e6) + ", has " + (avail / 1e6));
                                 dropped++;
                                 totalrequest -= request;
                                 invenRequest[amtInven] = 0L;
@@ -1580,7 +1582,8 @@ PhysicalGunObject/
                 if (limited)
                     amount = Math.Min(amount, request);
                 amount = (amount / round) * round;
-                if (debug) debugText.Add((reqInven.Owner == null ? "???" : (reqInven.Owner as IMyTerminalBlock).CustomName) + " gets " + (request / 1e6) + " / " + (totalrequest / 1e6) + " of " + (totalavail / 1e6) + " = " + (amount / 1e6));
+                //if (debug)
+                    debugText.Add((reqInven.Owner == null ? "???" : (reqInven.Owner as IMyTerminalBlock).CustomName) + " gets " + (request / 1e6) + " / " + (totalrequest / 1e6) + " of " + (totalavail / 1e6) + " = " + (amount / 1e6));
                 totalrequest -= request;
 
                 // check how much it already has
@@ -1626,7 +1629,8 @@ PhysicalGunObject/
                 }
             }
 
-            if (debug) debugText.Add("" + (totalavail / 1e6) + " left over");
+            //if (debug)
+                debugText.Add("" + (totalavail / 1e6) + " left over");
         } // AllocateItemBatch()
 
 
@@ -1653,7 +1657,8 @@ PhysicalGunObject/
                     moved = stacks[s].Amount;
                     id = stacks[s].ItemId;
                     //			volume = (double)fromInven.CurrentVolume;
-                    if (debug) debugText.Add("" + remaining.ToString() + " remaining, attempting to send");
+                    //if (debug)
+                        debugText.Add("" + remaining.ToString() + " remaining, attempting to send");
                     if (fromInven == toInven)
                     {
                         remaining -= moved;
@@ -1677,7 +1682,8 @@ PhysicalGunObject/
                         else
                         {
                             numXfers++;
-                            if (debug) debugText.Add(
+                            //if (debug)
+                                debugText.Add(
                                 "Transferred " + GetShorthand((long)((double)moved * 1e6)) + " " + typeLabel[itype] + "/" + subLabel[isub] +
                                 " from " + (fromInven.Owner == null ? "???" : (fromInven.Owner as IMyTerminalBlock).CustomName) + " to " + (toInven.Owner == null ? "???" : (toInven.Owner as IMyTerminalBlock).CustomName)
                             );
