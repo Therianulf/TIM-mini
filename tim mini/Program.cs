@@ -580,6 +580,9 @@ PhysicalGunObject/
             {
                 if (!dockedgrids.Contains(block.CubeGrid))
                     continue;
+
+                debugText.Add(block.DisplayNameText + " has " + block.InventoryCount + " inventories");
+
                 match = tagRegex.Match(block.CustomName);
                 if (match.Success)
                 {
@@ -611,13 +614,14 @@ PhysicalGunObject/
                 }
 
                 i = block.InventoryCount;
+                
                 while (i-- > 0)
                 {
                     inven = block.GetInventory(i);
                     inven.GetItems(stacks,null);
                     s = stacks.Count;
 
-                    Echo("i = " + i.ToString() + " s = " + s.ToString());
+                    Echo(inven.GetHashCode() + " i = " + i.ToString() + " s = " + s.ToString());
                     while (s-- > 0)
                     {
                         // identify the stacked item
@@ -631,7 +635,7 @@ PhysicalGunObject/
                         isub = isub.ToUpper();
 
                         // update amounts
-                        amount = (long)stacks[s].Amount.ToIntSafe();
+                        amount = stacks[s].Amount.RawValue;
                         debugText.Add( isub + " updated amount " + amount.ToString());
                         typeAmount[itype] += amount;
                         data = typeSubData[itype][isub];
@@ -643,6 +647,8 @@ PhysicalGunObject/
                         data.invenSlot[inven] = Math.Max(n, s + 1);
                         debugText.Add(" data.amount after update " + data.amount.ToString());
                     }
+
+                    
                 }
             }
         } // ScanBlocks()
