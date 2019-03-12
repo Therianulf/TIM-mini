@@ -6,13 +6,17 @@
  *   
  *   
      Taleden's Inventory Manager
-     version 1.7.0 (2018-10-30)
+     version 1.8.0 (2019-03-11)
 
      Updated by Therian
 
+     Contributors:
+     Ian25 https://github.com/Ian25
+
+
      "There are some who call me... TIM?"
 
-     Steam Workshop: http://steamcommunity.com/sharedfiles/filedetails/?id=546825757
+     Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=1552258272
      User's Guide:   http://steamcommunity.com/sharedfiles/filedetails/?id=546909551
 
 
