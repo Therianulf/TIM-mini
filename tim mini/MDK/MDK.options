@@ -3,8 +3,8 @@
 <!-- MDK is using this file to identify this project as an MDK project. -->
 <mdk version="1.1.30">
   <gamebinpath enabled="no">c:\program files (x86)\steam\SteamApps\common\SpaceEngineers\Bin64</gamebinpath>
-  <installpath>C:\users\Ian\appdata\local\microsoft\visualstudio\15.0_6b0edb7c\extensions\mqivmdq5.thj</installpath>
-  <outputpath>C:\Users\Ian\AppData\Roaming\SpaceEngineers\IngameScripts\local</outputpath>
+  <installpath>C:\users\therian\appdata\local\microsoft\visualstudio\15.0_6b0edb7c\extensions\mqivmdq5.thj</installpath>
+  <outputpath>C:\Users\therian\AppData\Roaming\SpaceEngineers\IngameScripts\local</outputpath>
   <trimtypes>yes</trimtypes>
   <minify>yes</minify>
   <ignore>
