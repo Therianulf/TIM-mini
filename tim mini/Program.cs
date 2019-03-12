@@ -131,8 +131,8 @@ PhysicalGunObject/
         Do not edit anything below unless you're sure you know what you're doing!
         */
 
-        const int VERS_MAJ = 1, VERS_MIN = 7, VERS_REV = 0;
-        const string VERS_UPD = "2018-10-30";
+        const int VERS_MAJ = 1, VERS_MIN = 8, VERS_REV = 0;
+        const string VERS_UPD = "2019-03-11";
         const int VERSION = (VERS_MAJ * 1000000) + (VERS_MIN * 1000) + VERS_REV;
 
         const int MAX_CYCLE_STEPS = 11, CYCLE_LENGTH = 1;
@@ -645,7 +645,7 @@ PhysicalGunObject/
 
                 if(block.HasInventory)
                 {
-                    Echo(block.DisplayNameText + " " + block.EntityId);
+                    
                     int numInvs = block.InventoryCount;
                     for(int i = 0; i < numInvs; ++i)
                     {
@@ -668,7 +668,7 @@ PhysicalGunObject/
                    
                     }
 
-                    Echo("");
+                   
 
                 }
             }
@@ -1497,10 +1497,8 @@ PhysicalGunObject/
                 foreach (string itype in priTypeSubInvenRequest[p].Keys)
                 {
 
-                    Echo("itype = "+itype);
                     foreach (string isub in priTypeSubInvenRequest[p][itype].Keys)
                     {
-                        Echo("isub = "+isub + " | p = " + p.ToString());
                         AllocateItemBatch(limited, p, itype, isub);
                     }
                 }
